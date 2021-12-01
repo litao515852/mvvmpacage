@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lzkhy.moble.zkhywater
+package com.lzkhy.moble.zkhywater.network
 
 import okhttp3.Interceptor
 import okhttp3.Response

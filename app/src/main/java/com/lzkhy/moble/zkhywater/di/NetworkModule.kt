@@ -17,9 +17,9 @@ package com.lzkhy.moble.zkhywater.di
  * limitations under the License.
  */
 
-import com.lzkhy.moble.zkhywater.HttpClient
-import com.lzkhy.moble.zkhywater.HttpRequestInterceptor
-import com.lzkhy.moble.zkhywater.HttpServices
+import com.lzkhy.moble.zkhywater.network.HttpClient
+import com.lzkhy.moble.zkhywater.network.HttpRequestInterceptor
+import com.lzkhy.moble.zkhywater.network.HttpServices
 import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -53,7 +53,7 @@ object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("https://pokeapi.co/api/v2/")
+            .baseUrl("http://172.16.100.134:8081/")
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
             .build()

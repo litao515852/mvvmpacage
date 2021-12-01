@@ -24,13 +24,13 @@ apply from: "$rootDir/dependencies.gradle"
 android {
     compileSdkVersion versions.compileSdk
     defaultConfig {
-        applicationId "com.skydoves.pokedex"
+        applicationId "com.lzkhy.moble.zkhywater"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.compileSdk
         versionCode versions.versionCode
         versionName versions.versionName
         vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "com.skydoves.pokedex.AppTestRunner"
+        testInstrumentationRunner "com.lzkhy.moble.zkhywater.AppTestRunner"
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += ["room.schemaLocation" : "$projectDir/schemas".toString()]
@@ -91,6 +91,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecycleVersion"
     implementation "androidx.room:room-runtime:$versions.roomVersion"
     implementation "androidx.room:room-ktx:$versions.roomVersion"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     kapt "androidx.room:room-compiler:$versions.roomVersion"
     testImplementation "androidx.arch.core:core-testing:$versions.archCompomentVersion"
 

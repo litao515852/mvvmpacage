@@ -14,21 +14,26 @@
  * limitations under the License.
  */
 
-package com.lzkhy.moble.zkhywater.network
+package com.lzkhy.moble.zkhywater.di
 
-import com.lzkhy.moble.zkhywater.model.ApiResult
-import com.lzkhy.moble.zkhywater.model.login.LoginReq
-import com.skydoves.sandwich.ApiResponse
-import retrofit2.http.*
+import com.lzkhy.moble.zkhywater.network.HttpClient
+import com.lzkhy.moble.zkhywater.repository.LoginRepository
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.CoroutineDispatcher
 
-/***
- * retrofit服务接口
- */
-interface HttpServices {
+@Module
+@InstallIn(ViewModelComponent::class)
+object RepositoryModule {
 
-  @POST("login")
-  suspend fun login(@Body post:LoginReq): ApiResult<String>
-//
-//  @GET("pokemon/{name}")
-//  suspend fun fetchPokemonInfo(@Path("name") name: String): ApiResponse<PokemonInfo>
+  @Provides
+  @ViewModelScoped
+  fun provideMainRepository(
+    httpClient: HttpClient,
+  ): LoginRepository {
+    return LoginRepository(httpClient)
+  }
 }

@@ -13,22 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.lzkhy.moble.zkhywater.network
-
-import com.lzkhy.moble.zkhywater.model.ApiResult
-import com.lzkhy.moble.zkhywater.model.login.LoginReq
-import com.skydoves.sandwich.ApiResponse
-import retrofit2.http.*
-
-/***
- * retrofit服务接口
- */
-interface HttpServices {
-
-  @POST("login")
-  suspend fun login(@Body post:LoginReq): ApiResult<String>
-//
-//  @GET("pokemon/{name}")
-//  suspend fun fetchPokemonInfo(@Path("name") name: String): ApiResponse<PokemonInfo>
-}
+package com.lzkhy.moble.zkhywater.repository
+/** Repository is an interface for configuring base repository classes. */
+interface Repository

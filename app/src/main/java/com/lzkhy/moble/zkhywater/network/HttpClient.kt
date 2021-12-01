@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-package com.lzkhy.moble.zkhywater
+package com.lzkhy.moble.zkhywater.network
 
+import com.lzkhy.moble.zkhywater.model.ApiResult
+import com.lzkhy.moble.zkhywater.model.login.LoginReq
 import javax.inject.Inject
 
 /***
  * retrofit 接口实现类
  */
 class HttpClient @Inject constructor(
-  private val httpClient : HttpServices
+  private val httpServices: HttpServices
 ) {
 
-//  suspend fun fetchPokemonList(
-//    page: Int
-//  ): ApiResponse<PokemonResponse> =
-//    pokedexService.fetchPokemonList(
-//      limit = PAGING_SIZE,
-//      offset = page * PAGING_SIZE
-//    )
+  suspend fun login(
+    post:LoginReq
+  ): ApiResult<String> =
+    httpServices.login(post)
 //
 //  suspend fun fetchPokemonInfo(
 //    name: String
