@@ -53,7 +53,7 @@ object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("http://172.16.100.134:8081/")
+            .baseUrl("https://134.cdzkhy.com/api/")
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
             .build()
@@ -61,13 +61,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providePokedexService(retrofit: Retrofit): HttpServices {
+    fun provideHttpService(retrofit: Retrofit): HttpServices {
         return retrofit.create(HttpServices::class.java)
     }
 
     @Provides
     @Singleton
-    fun providePokedexClient(httpServices: HttpServices): HttpClient {
+    fun provideHttpClient(httpServices: HttpServices): HttpClient {
         return HttpClient(httpServices)
     }
 }

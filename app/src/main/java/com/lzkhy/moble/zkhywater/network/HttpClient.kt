@@ -18,6 +18,11 @@ package com.lzkhy.moble.zkhywater.network
 
 import com.lzkhy.moble.zkhywater.model.ApiResult
 import com.lzkhy.moble.zkhywater.model.login.LoginReq
+import com.skydoves.sandwich.ApiResponse
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.http.Query
 import javax.inject.Inject
 
 /***
@@ -27,11 +32,12 @@ class HttpClient @Inject constructor(
   private val httpServices: HttpServices
 ) {
 
-  suspend fun login(
-    post:LoginReq
-  ): ApiResult<String> =
+     suspend fun login(
+         post: Map<String,String>
+  ):  ApiResponse<ApiResult<String>> =
     httpServices.login(post)
-//
+
+
 //  suspend fun fetchPokemonInfo(
 //    name: String
 //  ): ApiResponse<PokemonInfo> =

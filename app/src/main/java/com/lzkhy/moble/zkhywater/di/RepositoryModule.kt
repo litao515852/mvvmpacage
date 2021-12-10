@@ -31,7 +31,7 @@ object RepositoryModule {
 
   @Provides
   @ViewModelScoped
-  fun provideMainRepository(
+  fun provideLoginRepository(
     httpClient: HttpClient,
   ): LoginRepository {
     return LoginRepository(httpClient)

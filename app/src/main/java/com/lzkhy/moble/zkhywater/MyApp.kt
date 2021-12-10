@@ -24,5 +24,15 @@ class MyApp : MultiDexApplication(){
 
     override fun onCreate() {
         super.onCreate()
+
+        mInstance = this
+    }
+
+   companion object{
+        private var mInstance: MyApp? = null
+
+        fun getInstance():MyApp?{
+            return mInstance
+        }
     }
 }

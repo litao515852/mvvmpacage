@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-<!--        <variable-->
-<!--            name="login"-->
-<!--            type="com.skydoves.pokedex.ui.main.MainViewModel" />-->
-
+        <variable
+            name="vm"
+            type="com.lzkhy.moble.zkhywater.ui.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -76,9 +74,10 @@
             android:background="@drawable/edit_background_radius4"
             android:drawableStart="@drawable/icon_zhanghao"
             android:drawablePadding="10dp"
-            android:paddingStart="16dp"
-            android:textSize="14sp"
             android:hint="请输入手机号码"
+            android:paddingStart="16dp"
+            android:text="@={vm.userName}"
+            android:textSize="14sp"
             app:layout_constraintTop_toTopOf="@+id/card_im" />
 
         <androidx.appcompat.widget.AppCompatEditText
@@ -91,17 +90,20 @@
             android:background="@drawable/edit_background_radius4"
             android:drawableStart="@drawable/icon_mima"
             android:drawablePadding="10dp"
-            android:paddingStart="16dp"
-            android:textSize="14sp"
             android:hint="请输入密码"
+            android:inputType="@{vm.showPass? 0x00000091: 0x00000081}"
+            android:paddingStart="16dp"
+            android:text="@={vm.password}"
+            android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/password_status"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:onClick="@{()->vm.onPasswordShow()}"
             android:paddingEnd="10dp"
-            android:src="@drawable/icon_yincang"
+            android:src="@{vm.showPass?@drawable/icon_xianshi:@drawable/icon_yincang}"
             app:layout_constraintBottom_toBottomOf="@+id/user_password"
             app:layout_constraintEnd_toEndOf="@+id/user_password"
             app:layout_constraintTop_toTopOf="@+id/user_password" />
@@ -133,6 +135,7 @@
             android:layout_marginEnd="57dp"
             android:background="@drawable/btn_background_radius30"
             android:text="登 录"
+            android:onClick="@{()-> vm.login()}"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/space" />
@@ -141,9 +144,9 @@
             android:id="@+id/right_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="10dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/icon_arrow_right"
+            android:elevation="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/login"
             app:layout_constraintEnd_toEndOf="@+id/login"
             app:layout_constraintTop_toTopOf="@+id/login" />

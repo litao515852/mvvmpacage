@@ -17,15 +17,13 @@
 package com.lzkhy.moble.zkhywater.repository
 
 import androidx.annotation.WorkerThread
+import com.lzkhy.moble.zkhywater.model.ApiUtils
 import com.lzkhy.moble.zkhywater.model.login.LoginReq
 import com.lzkhy.moble.zkhywater.network.HttpClient
 import com.skydoves.sandwich.ApiResponse
 import com.skydoves.sandwich.suspendOnSuccess
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -33,18 +31,21 @@ class LoginRepository @Inject constructor(
     private val httpClient: HttpClient,
 ) : Repository {
 
-  @WorkerThread
-  fun login(
-    name: String,
-    password:String,
+//  @WorkerThread
+//  fun login(username: String,
+//    password:String,
 //    onComplete: () -> Unit,
-//    onError: (String?) -> Unit
-  ) = flow<String?> {
-      /**
-       * fetches a [PokemonInfo] from the network and getting [ApiResponse] asynchronously.
-       * @see [suspendOnSuccess](https://github.com/skydoves/sandwich#suspendonsuccess-suspendonerror-suspendonexception)
-       */
-      val response = httpClient.login(LoginReq(username = name,password=password))
+////    onError: (String?) -> Unit
+//  ) =
+    /**
+     * fetches a [PokemonInfo] from the network and getting [ApiResponse] asynchronously.
+     * @see [suspendOnSuccess](https://github.com/skydoves/sandwich#suspendonsuccess-suspendonerror-suspendonexception)
+     */
+//      flow<String>{
+//          val response = httpClient.fetchPokemonList(0)
+//          emit("1")
+//      }.onCompletion { onComplete() }.flowOn(Dispatchers.IO)
+
 //      response.suspendOnSuccess {
 //        pokemonInfoDao.insertPokemonInfo(data)
 //        emit(data)
@@ -59,9 +60,35 @@ class LoginRepository @Inject constructor(
 //        // e.g., network connection error.
 //        .onException { onError(message) }
 
-      emit(response.data)
 
-  }.onCompletion {
-      Timber.i(toString())
-  }.flowOn(Dispatchers.IO)
+    @WorkerThread
+    @Synchronized
+     fun login(
+        username: String,
+        password: String,
+//    onError: (String?) -> Unit
+    ): Boolean {
+
+        var login: Boolean = false
+
+        GlobalScope.launch{
+            var map = mutableMapOf<String, String>()
+            map.put("username", "13899999999")
+            map.put("password", "123456abcd")
+//            LoginReq("13899999999","123456abcd")
+            val response = httpClient.login(map)
+
+            ApiUtils.response(response).suspendOnSuccess {
+                if (data.code == 0) {
+                    //获取token 并存入
+                    Timber.d(data.data)
+                    login = true
+                }
+            }
+            Timber.d(response.toString())
+        }
+        return login
+    }
+
+
 }

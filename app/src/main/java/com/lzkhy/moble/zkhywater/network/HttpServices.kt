@@ -19,16 +19,22 @@ package com.lzkhy.moble.zkhywater.network
 import com.lzkhy.moble.zkhywater.model.ApiResult
 import com.lzkhy.moble.zkhywater.model.login.LoginReq
 import com.skydoves.sandwich.ApiResponse
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.http.*
+import java.util.*
+import kotlin.collections.HashMap
+import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 /***
  * retrofit服务接口
  */
 interface HttpServices {
 
-  @POST("login")
-  suspend fun login(@Body post:LoginReq): ApiResult<String>
-//
-//  @GET("pokemon/{name}")
-//  suspend fun fetchPokemonInfo(@Path("name") name: String): ApiResponse<PokemonInfo>
+    @FormUrlEncoded
+    @POST("login")
+    suspend fun login(
+     @FieldMap post : Map<String,String>
+    ): ApiResponse<ApiResult<String>>
 }

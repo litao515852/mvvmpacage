@@ -57,7 +57,7 @@ ext.versions = [
         sandwichVersion      : '1.2.1',
 
         // moshi
-        moshiVersion         : '1.11.0',
+        moshiVersion         : '1.12.0',
 
         // coroutines
         coroutinesVersion    : '1.5.0',
