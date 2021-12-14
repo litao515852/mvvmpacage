@@ -63,7 +63,7 @@ class LoginRepository @Inject constructor(
 
     @WorkerThread
     @Synchronized
-     fun login(
+    suspend fun login(
         username: String,
         password: String,
 //    onError: (String?) -> Unit
@@ -71,22 +71,21 @@ class LoginRepository @Inject constructor(
 
         var login: Boolean = false
 
-        GlobalScope.launch{
-            var map = mutableMapOf<String, String>()
-            map.put("username", "13899999999")
-            map.put("password", "123456abcd")
+        var map = mutableMapOf<String, String>()
+        map.put("username", "13899999999")
+        map.put("password", "123456abcd")
 //            LoginReq("13899999999","123456abcd")
-            val response = httpClient.login(map)
+        val response = httpClient.login(map)
 
-            ApiUtils.response(response).suspendOnSuccess {
-                if (data.code == 0) {
-                    //获取token 并存入
-                    Timber.d(data.data)
-                    login = true
-                }
+        ApiUtils.response(response).suspendOnSuccess {
+            if (data.code == 0) {
+                //获取token 并存入
+                Timber.d(data.data)
+                login = true
             }
-            Timber.d(response.toString())
         }
+        Timber.d(response.toString())
+
         return login
     }
 

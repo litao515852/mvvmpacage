@@ -12,9 +12,13 @@ import com.skydoves.bindables.FlowBindingPropertyIdWithDefaultValueOnScope
 import com.skydoves.bindables.asBindingProperty
 import com.skydoves.bindables.bindingProperty
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -35,26 +39,39 @@ class LoginViewModel @AssistedInject constructor(
     @get:Bindable
     var showPass : Boolean by bindingProperty(false)
 
-    fun login():String {
+    @get:Bindable
+    var loading : Boolean by bindingProperty(false)
+        private set
+
+    fun login() {
         if(userName.isEmpty()){
             ToastUtils.showToast("请输入手机号码")
-            return ""
+            return
         }
         if(password.isEmpty()){
             ToastUtils.showToast("请输入密码")
-            return ""
+            return
         }
 
 //        loginRepository.login(userName, password)
-       var isSuss =loginRepository.login(
-            userName,
-            password,
-        )
 
-        if(isSuss){
-            ToastUtils.showToast("登录成功")
+        //
+        GlobalScope.launch {
+            loading = true
+            var isSuss =loginRepository.login(
+                userName,
+                password,
+
+            )
+
+            withContext(Dispatchers.Main){
+                loading = false
+                if(isSuss){
+                    ToastUtils.showToast("登录成功")
+                }
+            }
         }
-        return ""
+
     }
 
 //    private val pokemonListFlow = loginRepository.login(

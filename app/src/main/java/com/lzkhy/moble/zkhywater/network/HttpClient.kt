@@ -29,13 +29,13 @@ import javax.inject.Inject
  * retrofit 接口实现类
  */
 class HttpClient @Inject constructor(
-  private val httpServices: HttpServices
+    private val httpServices: HttpServices
 ) {
 
-     suspend fun login(
-         post: Map<String,String>
-  ):  ApiResponse<ApiResult<String>> =
-    httpServices.login(post)
+    suspend fun login(
+        post: Map<String, String>
+    ): ApiResponse<ApiResult<String>> =
+        httpServices.login(post)
 
 
 //  suspend fun fetchPokemonInfo(
@@ -45,7 +45,7 @@ class HttpClient @Inject constructor(
 //      name = name
 //    )
 
-  companion object {
-    private const val PAGING_SIZE = 30
-  }
+    companion object {
+        private const val PAGING_SIZE = 30
+    }
 }

@@ -16,4 +16,6 @@
 
     <color name="edit_bg">#F6F6F6</color>
     <color name="text_blue_color">#56638B</color>
+
+    <color name="loading_bg">#33000000</color>
 </resources>
