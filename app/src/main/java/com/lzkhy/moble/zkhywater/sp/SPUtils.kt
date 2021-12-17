@@ -34,18 +34,25 @@ object SPUtils {
             Context.MODE_PRIVATE
         )
         val editor = sp.edit()
-        if (Object is String) {
-            editor.putString(key, Object)
-        } else if (Object is Int) {
-            editor.putInt(key, Object)
-        } else if (Object is Boolean) {
-            editor.putBoolean(key, Object)
-        } else if (Object is Float) {
-            editor.putFloat(key, Object)
-        } else if (Object is Long) {
-            editor.putLong(key, Object)
-        } else {
-            editor.putString(key, Object.toString())
+        when (Object) {
+            is String -> {
+                editor.putString(key, Object)
+            }
+            is Int -> {
+                editor.putInt(key, Object)
+            }
+            is Boolean -> {
+                editor.putBoolean(key, Object)
+            }
+            is Float -> {
+                editor.putFloat(key, Object)
+            }
+            is Long -> {
+                editor.putLong(key, Object)
+            }
+            else -> {
+                editor.putString(key, Object.toString())
+            }
         }
         SharedPreferencesCompat.apply(editor)
     }
@@ -63,18 +70,24 @@ object SPUtils {
             FILE_NAME,
             Context.MODE_PRIVATE
         )
-        if (defaultObject is String) {
-            return sp.getString(key, defaultObject as String?)
-        } else if (defaultObject is Int) {
-            return sp.getInt(key, (defaultObject as Int?)!!)
-        } else if (defaultObject is Boolean) {
-            return sp.getBoolean(key, (defaultObject as Boolean?)!!)
-        } else if (defaultObject is Float) {
-            return sp.getFloat(key, (defaultObject as Float?)!!)
-        } else if (defaultObject is Long) {
-            return sp.getLong(key, (defaultObject as Long?)!!)
+        when (defaultObject) {
+            is String -> {
+                return sp.getString(key, defaultObject as String?)
+            }
+            is Int -> {
+                return sp.getInt(key, (defaultObject as Int?)!!)
+            }
+            is Boolean -> {
+                return sp.getBoolean(key, (defaultObject as Boolean?)!!)
+            }
+            is Float -> {
+                return sp.getFloat(key, (defaultObject as Float?)!!)
+            }
+            is Long -> {
+                return sp.getLong(key, (defaultObject as Long?)!!)
+            }
+            else -> return null
         }
-        return null
     }
 
     /**
