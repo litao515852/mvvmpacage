@@ -20,6 +20,7 @@ import androidx.annotation.WorkerThread
 import com.lzkhy.moble.zkhywater.model.ApiUtils
 import com.lzkhy.moble.zkhywater.model.login.LoginReq
 import com.lzkhy.moble.zkhywater.network.HttpClient
+import com.lzkhy.moble.zkhywater.sp.SPUtils
 import com.skydoves.sandwich.ApiResponse
 import com.skydoves.sandwich.suspendOnSuccess
 import kotlinx.coroutines.*
@@ -80,7 +81,9 @@ class LoginRepository @Inject constructor(
         ApiUtils.response(response).suspendOnSuccess {
             if (data.code == 0) {
                 //获取token 并存入
-                Timber.d(data.data)
+//                Timber.d(data.data)
+
+                data.data?.let { SPUtils.put(SPUtils.token, it) }
                 login = true
             }
         }
